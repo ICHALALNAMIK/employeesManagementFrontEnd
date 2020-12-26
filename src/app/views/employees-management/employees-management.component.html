@@ -1,0 +1,105 @@
+    <!-- navbar -->
+  <div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="">Emplyees Management</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav">
+            <a class="nav-link active" aria-current="page" href="#">Home</a>
+            <a class="nav-link" href="">A Propos</a>
+            <a class="nav-link" href="/employeeManagement">Géstion des salariés</a>
+
+          </div>
+        </div>
+      </div>
+    </nav>
+  </div>
+  <!-- navbar -->
+  <!-- Editable table -->
+  <div class="card">
+    <div class="alert alert-success alert-dismissible fade show" role="alert" *ngIf="isSaved">
+
+      <button type="button" id="btnAlert" class="btn btn-success  btn-sm" (click)="close()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+
+      <strong>Enregistré(s) avec succé(s)</strong>
+    </div>
+
+    <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="!isFilled">
+
+      <button type="button" id="btnAlert" class="btn btn-danger btn-sm" data-dismiss="alert" aria-label="Close" (click)="close()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <strong>Tout les champs sont obligatoir ou format incorrect !!! </strong>    Format: id, age et salaire en chiffres, nom et prénom en lettres.
+
+    </div>
+
+
+    <h3 class="card-header text-center font-weight-bold text-uppercase py-4">Gestion de salariés: </h3>
+
+    <div class="card-body">
+      <div id="table" class="table-editable">
+
+        <div class="d-grid gap-3 d-md-flex justify-content-md-end">
+          <button class="btn btn-outline-success btn-sm  me-md-2 " (click)="add()">
+            Ajouter +
+          </button>
+        </div>
+        <table class="table table-bordered table-responsive-md table-striped text-center">
+          <tr>
+
+            <th class="text-center">numéro </th>
+            <th class="text-center">Prénom</th>
+            <th class="text-center">Nom</th>
+            <th class="text-center">Age</th>
+            <th class="text-center">Salaire( K € )</th>
+            <th class="text-center">supprimer</th>
+          </tr>
+
+          <tr *ngFor="let employee of employeeList; let id = index">
+            <td>
+              <span (keyup)="changeValue(id, 'id', $event)" (blur)="updateList(id, 'id', $event)" contenteditable="true">
+                {{employee.id}}
+              </span>
+            </td>
+            <td>
+              <span contenteditable="true" (keyup)="changeValue(id, 'fname', $event)" (blur)="updateList(id, 'fname', $event)"
+                    style="text-transform:capitalize">{{employee.fname}}</span>
+            </td>
+            <td>
+              <span contenteditable="true" (keyup)="changeValue(id, 'lastName', $event)" (blur)="updateList(id, 'lastName', $event)"
+                    style="text-transform:uppercase">{{employee.lastName| uppercase}}</span>
+            </td>
+            <td>
+              <span contenteditable="true" (keyup)="changeValue(id, 'age', $event)" (blur)="updateList(id, 'age', $event)">{{employee.age}}</span>
+            </td>
+            <td>
+              <span contenteditable="true" (keyup)="changeValue(id, 'salary', $event)" (blur)="updateList(id, 'salary', $event)">{{employee.salary}}</span>
+            </td>
+
+            <td>
+              <span class="table-remove">
+
+                <button type="button" rounded="true" size="sm" class="btn btn-outline-danger btn-sm" (click)="remove(id)">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </span>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+
+      <button class="btn btn-outline-success me-md-4" (click)="saveEmployees()" type="submit">Enregistrer</button>
+      <button class="btn btn-outline-danger" type="button" (click)=" getListEmployee()">Annuler</button>
+
+    </div>
+
+
+  </div>
+
